@@ -1,4 +1,4 @@
-import { MaxLength, MinLength, IsString } from "class-validator";
+import { MaxLength, MinLength, IsString, Matches } from 'class-validator';
 
 export class AuthCredentialsDto {
   @IsString()
@@ -9,5 +9,8 @@ export class AuthCredentialsDto {
   @IsString()
   @MinLength(8)
   @MaxLength(32)
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'password is too weak',
+  })
   password: string;
 }
